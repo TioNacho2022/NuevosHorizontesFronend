@@ -1,0 +1,7 @@
+{
+  "name": "NuevosHorizontes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
