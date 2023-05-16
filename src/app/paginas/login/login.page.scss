@@ -1,0 +1,33 @@
+.logo{
+  display: flex;
+  justify-content: center;
+
+  .img{
+    width: 200px;
+  }
+}
+
+ion-content{
+  --background: none;
+  background-image: url("https://media.istockphoto.com/id/1304006895/es/foto/aula-vac%C3%ADa-o-sala-de-presentaci%C3%B3n-interior-con-escritorios-sillas-y-pizarra-renderizado-en-3d.jpg?s=612x612&w=0&k=20&c=vW9ikdYkClbSttSnGfudHbfauaNPG-Zj2UiPXp0pBb4=");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+ion-card{
+  width: 400px;
+  background-color: white;
+
+}
+
+ion-grid{
+  display: flex;
+  justify-content: center;
+}
+
+form{
+  margin: 20px;
+}
+
+

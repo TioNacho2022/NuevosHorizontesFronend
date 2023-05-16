@@ -1,0 +1,88 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>Daniel Smith</h2>
+          <p>Product Designer</p>
+        </ion-label>
+      </ion-item>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="start" color="">
+        <ion-button  mode="ios" fill="clear" color="light" shape="round">
+          <ion-icon name="mail" slot="start" color="light"></ion-icon>
+          Contacto
+        </ion-button>
+        <ion-button  mode="ios" fill="clear" color="light" shape="round">
+          <ion-icon name="location" slot="start" color="light"></ion-icon>
+          Dónde estamos
+        </ion-button>
+        <ion-button  mode="ios" fill="clear" color="light" shape="round">
+          <ion-icon name="people" slot="start" color="light"></ion-icon>
+          Nostros
+        </ion-button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card class="matricula" color="medium">
+            <ion-card-header>
+              <ion-card-title>
+                Matriculas
+              </ion-card-title>
+              <ion-card-subtitle>
+                Gestion de matriculas 2023
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col>
+                  <ion-card>
+                    <ion-card-header>
+                      <ion-card-title>Levantar Perfiles</ion-card-title>
+                      <ion-card-subtitle>Levantar perfil de los postulantes y apoderados o tutores</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                     <ion-button [routerLink]="['/levantar-perfil']">Levantar
+                      <img class="icon" src="assets/icon/agregar.png" alt="">
+                     </ion-button>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col>
+                  <ion-card>
+                    <ion-card-header>
+                      <ion-card-title>Perfiles</ion-card-title>
+                      <ion-card-subtitle>Gestionar los perfiles de forma detallada</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                     <ion-button>Gestionar
+                      <img class="icon" src="assets/icon/configuraciones.png" alt="">
+                     </ion-button>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</div>

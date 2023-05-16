@@ -1,0 +1,479 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button mode="ios" color="light" [routerLink]="['/inicio']">
+        Regresar
+        <ion-icon slot="start" name="grid"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="matricula" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              Perfiles
+            </ion-card-title>
+            <ion-card-subtitle>
+              Gestion de matriculas 2023
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <ion-card (click)="prueba()">
+                  <ion-card-header>
+                    <ion-card-title>Estudiante</ion-card-title>
+                    <ion-card-subtitle>Ingrese toda la informacion del estudiante</ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <form action="" [formGroup]="formularioEstudiante" class="ion-margin-top">
+                      <ion-row>
+                        <ion-col>
+                          <h2>
+                            {{this.formularioEstudiante.controls['p_nombre'].value}}
+                            {{this.formularioEstudiante.controls['ap_paterno'].value}}
+                          </h2>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Primer nombre:</ion-label>
+                            <ion-input formControlName="p_nombre" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('p_nombre',0)?.invalid  && campo('p_nombre',0)?.errors && campo('p_nombre',0)?.errors.required && fueTocado('p_nombre',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('p_nombre',0)?.invalid  && campo('p_nombre',0)?.errors && campo('p_nombre',0)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                            <ion-note slot="error" *ngIf="campo('p_nombre',0)?.invalid  && campo('p_nombre',0)?.errors && campo('p_nombre',0)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Segundo nombre:</ion-label>
+                            <ion-input formControlName="s_nombre" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('s_nombre',0)?.invalid  && campo('s_nombre',0)?.errors && campo('s_nombre',0)?.errors.required && fueTocado('s_nombre',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('s_nombre',0)?.invalid  && campo('s_nombre',0)?.errors && campo('s_nombre',0)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                            <ion-note slot="error" *ngIf="campo('s_nombre',0)?.invalid  && campo('s_nombre',0)?.errors && campo('s_nombre',0)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Rut:</ion-label>
+                            <ion-input formControlName="rut" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('rut',0)?.invalid  && campo('rut',0)?.errors && campo('rut',0)?.errors.required && fueTocado('rut',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('rut',0)?.invalid  && campo('rut',0)?.errors && campo('rut',0)?.errors.pattern">Rut invalido</ion-note>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Apellido paterno:</ion-label>
+                            <ion-input formControlName="ap_paterno" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('ap_paterno',0)?.invalid  && campo('ap_paterno',0)?.errors && campo('ap_paterno',0)?.errors.required && fueTocado('ap_paterno',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('ap_paterno',0)?.invalid  && campo('ap_paterno',0)?.errors && campo('ap_paterno',0)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                            <ion-note slot="error" *ngIf="campo('ap_paterno',0)?.invalid  && campo('ap_paterno',0)?.errors && campo('ap_paterno',0)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Apellido materno:</ion-label>
+                            <ion-input formControlName="ap_materno" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('ap_materno',0)?.invalid  && campo('ap_materno',0)?.errors && campo('ap_materno',0)?.errors.required && fueTocado('ap_materno',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('ap_materno',0)?.invalid  && campo('ap_materno',0)?.errors && campo('ap_materno',0)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                            <ion-note slot="error" *ngIf="campo('ap_materno',0)?.invalid  && campo('ap_materno',0)?.errors && campo('ap_materno',0)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item >
+                            <ion-label position="floating"  class="ion-margin-buttom">Edad:</ion-label>
+                            <ion-input type="number" formControlName="edad" class="ion-margin-top"></ion-input>
+                            <ion-note slot="error" *ngIf="campo('edad',0)?.invalid  && campo('edad',0)?.errors && campo('edad',0)?.errors.required && fueTocado('edad',0)">Obligatorio</ion-note>
+                            <ion-note slot="error" *ngIf="campo('edad',0)?.invalid  && campo('edad',0)?.errors && campo('edad',0)?.errors.min">La edad minima es de 11 años</ion-note>
+                            <ion-note slot="error" *ngIf="campo('edad',0)?.invalid  && campo('edad',0)?.errors && campo('edad',0)?.errors.max">La edad maxima es de 20 años</ion-note>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col size="xs">
+                          <ion-list>
+                            <ion-item>
+                              <ion-select  aria-label="Fruit" interface="popover" placeholder="Curso de ingreso" formControlName="curso_ingreso">
+                                <ion-select-option [value]="c?.nombre" *ngFor="let c of cursos">{{c?.nombre}}</ion-select-option>
+                              </ion-select>
+                              <ion-note color="danger" slot="error" slot="end" *ngIf="campo('curso_ingreso',0)?.invalid  && campo('curso_ingreso',0)?.errors && campo('curso_ingreso',0)?.errors.required && fueTocado('curso_ingreso',0)">Obligatorio</ion-note>
+                            </ion-item>
+                          </ion-list>
+                        </ion-col>
+                        <ion-col size="xs">
+                          <ion-list>
+                            <ion-item>
+                              <ion-select  aria-label="Fruit" interface="popover" placeholder="Genero" formControlName="genero">
+                                <ion-select-option [value]="g?.nombre" *ngFor="let g of genero">{{g?.nombre}}</ion-select-option>
+                              </ion-select>
+                              <ion-note color="danger" slot="error" slot="end" *ngIf="campo('genero',0)?.invalid  && campo('genero',0)?.errors && campo('genero',0)?.errors.required && fueTocado('genero',0)">Obligatorio</ion-note>
+                            </ion-item>
+                          </ion-list>
+                        </ion-col>
+                      </ion-row>
+                    </form>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <form action="" [formGroup]="formularioOpciones">
+                  <ion-segment formControlName="opcion" value="true" class="opciones"  mode="ios" color="" >
+                    <ion-segment-button (click)="opciones()" value="true" >
+                      <ion-label>Apoderados</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button  (click)="opciones()" value="false">
+                      <ion-label>Tutores</ion-label>
+                    </ion-segment-button>
+                  </ion-segment>
+                </form>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col  *ngIf="opcion">
+                <ion-card (click)="prueba()">
+                  <ion-card-header>
+                    <ion-card-title>Apoderados</ion-card-title>
+                    <ion-card-subtitle>Ingrese toda la informacion del estudiante</ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>
+                          {{this.formularioApoderado0.controls['p_nombre'].value}}
+                          {{this.formularioApoderado0.controls['ap_paterno'].value}}
+                        </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form action="" [formGroup]="formularioApoderado0" class="ion-margin-top">
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Primer nombre:</ion-label>
+                                <ion-input formControlName="p_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',1)?.invalid  && campo('p_nombre',1)?.errors && campo('p_nombre',1)?.errors.required && fueTocado('p_nombre',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',1)?.invalid  && campo('p_nombre',1)?.errors && campo('p_nombre',1)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',1)?.invalid  && campo('p_nombre',1)?.errors && campo('p_nombre',1)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Segundo nombre:</ion-label>
+                                <ion-input formControlName="s_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',1)?.invalid  && campo('s_nombre',1)?.errors && campo('s_nombre',1)?.errors.required && fueTocado('s_nombre',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',1)?.invalid  && campo('s_nombre',1)?.errors && campo('s_nombre',1)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',1)?.invalid  && campo('s_nombre',1)?.errors && campo('s_nombre',1)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Rut:</ion-label>
+                                <ion-input formControlName="rut" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('rut',1)?.invalid  && campo('rut',1)?.errors && campo('rut',1)?.errors.required && fueTocado('rut',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('rut',1)?.invalid  && campo('rut',1)?.errors && campo('rut',1)?.errors.pattern">Rut invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido paterno:</ion-label>
+                                <ion-input formControlName="ap_paterno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',1)?.invalid  && campo('ap_paterno',1)?.errors && campo('ap_paterno',1)?.errors.required && fueTocado('ap_paterno',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',1)?.invalid  && campo('ap_paterno',1)?.errors && campo('ap_paterno',1)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',1)?.invalid  && campo('ap_paterno',1)?.errors && campo('ap_paterno',1)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido materno:</ion-label>
+                                <ion-input formControlName="ap_materno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',1)?.invalid  && campo('ap_materno',1)?.errors && campo('ap_materno',1)?.errors.required && fueTocado('ap_materno',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',1)?.invalid  && campo('ap_materno',1)?.errors && campo('ap_materno',1)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',1)?.invalid  && campo('ap_materno',1)?.errors && campo('ap_materno',1)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Celular:</ion-label>
+                                <ion-input formControlName="celular" class="ion-margin-top" type="number" ><img class="chile" src="assets/icon/chile.png">9</ion-input>
+                                <ion-note slot="error" *ngIf="campo('celular',1)?.invalid  && campo('celular',1)?.errors && campo('celular',1)?.errors.required && fueTocado('celular',1)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('celular',1)?.invalid  && campo('celular',1)?.errors && campo('celular',1)?.errors.pattern">Celular invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                        </form>
+                      </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>
+                          {{this.formularioApoderado1.controls['p_nombre'].value}}
+                          {{this.formularioApoderado1.controls['ap_paterno'].value}}
+                        </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form action="" [formGroup]="formularioApoderado1" class="ion-margin-top">
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Primer nombre:</ion-label>
+                                <ion-input formControlName="p_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',2)?.invalid  && campo('p_nombre',2)?.errors && campo('p_nombre',2)?.errors.required && fueTocado('p_nombre',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',2)?.invalid  && campo('p_nombre',2)?.errors && campo('p_nombre',2)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',2)?.invalid  && campo('p_nombre',2)?.errors && campo('p_nombre',2)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Segundo nombre:</ion-label>
+                                <ion-input formControlName="s_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',2)?.invalid  && campo('s_nombre',2)?.errors && campo('s_nombre',2)?.errors.required && fueTocado('s_nombre',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',2)?.invalid  && campo('s_nombre',2)?.errors && campo('s_nombre',2)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',2)?.invalid  && campo('s_nombre',2)?.errors && campo('s_nombre',2)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Rut:</ion-label>
+                                <ion-input formControlName="rut" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('rut',2)?.invalid  && campo('rut',2)?.errors && campo('rut',2)?.errors.required && fueTocado('rut',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('rut',2)?.invalid  && campo('rut',2)?.errors && campo('rut',2)?.errors.pattern">Rut invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido paterno:</ion-label>
+                                <ion-input formControlName="ap_paterno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',2)?.invalid  && campo('ap_paterno',2)?.errors && campo('ap_paterno',2)?.errors.required && fueTocado('ap_paterno',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',2)?.invalid  && campo('ap_paterno',2)?.errors && campo('ap_paterno',2)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',2)?.invalid  && campo('ap_paterno',2)?.errors && campo('ap_paterno',2)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido materno:</ion-label>
+                                <ion-input formControlName="ap_materno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',2)?.invalid  && campo('ap_materno',2)?.errors && campo('ap_materno',2)?.errors.required && fueTocado('ap_materno',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',2)?.invalid  && campo('ap_materno',2)?.errors && campo('ap_materno',2)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',2)?.invalid  && campo('ap_materno',2)?.errors && campo('ap_materno',2)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Celular:</ion-label>
+                                <ion-input formControlName="celular" class="ion-margin-top" type="number" ><img class="chile" src="assets/icon/chile.png">9</ion-input>
+                                <ion-note slot="error" *ngIf="campo('celular',2)?.invalid  && campo('celular',2)?.errors && campo('celular',2)?.errors.required && fueTocado('celular',2)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('celular',2)?.invalid  && campo('celular',2)?.errors && campo('celular',2)?.errors.pattern">Celular invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row class="ion-margin-top">
+                            <ion-col class="ion-text-center">
+                              <form action="" [formGroup]="formularioOpcionesTutor"  >
+                                <ion-label>Tutor del estudiante para todo el proceso formativo</ion-label>
+                                <ion-segment value="t" class="opciones"  formControlName="opcion" >
+                                <ion-segment-button value="t" (click)="opcionesTutor(0)">
+                                   <ion-label>{{this.formularioApoderado0.value.p_nombre}} {{this.formularioApoderado0.value.ap_paterno}}</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button   value="f" (click)="opcionesTutor(0)">
+                                  <ion-label>{{this.formularioApoderado1.value.p_nombre}} {{this.formularioApoderado1.value.ap_paterno}}</ion-label>
+                                </ion-segment-button>
+                              </ion-segment>
+                              </form>
+                            </ion-col>
+                          </ion-row>
+                        </form>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col  *ngIf="!opcion">
+                <ion-card (click)="prueba()">
+                  <ion-card-header>
+                    <ion-card-title>Tutores</ion-card-title>
+                    <ion-card-subtitle>Ingrese toda la informacion del los tutores</ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>
+                          {{this.formularioTutor0.controls['p_nombre'].value}}
+                          {{this.formularioTutor0.controls['ap_paterno'].value}}
+                        </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form action="" [formGroup]="formularioTutor0" class="ion-margin-top">
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Primer nombre:</ion-label>
+                                <ion-input formControlName="p_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',3)?.invalid  && campo('p_nombre',3)?.errors && campo('p_nombre',3)?.errors.required && fueTocado('p_nombre',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',3)?.invalid  && campo('p_nombre',3)?.errors && campo('p_nombre',3)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',3)?.invalid  && campo('p_nombre',3)?.errors && campo('p_nombre',3)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Segundo nombre:</ion-label>
+                                <ion-input formControlName="s_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',3)?.invalid  && campo('s_nombre',3)?.errors && campo('s_nombre',3)?.errors.required && fueTocado('s_nombre',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',3)?.invalid  && campo('s_nombre',3)?.errors && campo('s_nombre',3)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',3)?.invalid  && campo('s_nombre',3)?.errors && campo('s_nombre',3)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Rut:</ion-label>
+                                <ion-input formControlName="rut" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('rut',3)?.invalid  && campo('rut',3)?.errors && campo('rut',3)?.errors.required && fueTocado('rut',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('rut',3)?.invalid  && campo('rut',3)?.errors && campo('rut',3)?.errors.pattern">Rut invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido paterno:</ion-label>
+                                <ion-input formControlName="ap_paterno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',3)?.invalid  && campo('ap_paterno',3)?.errors && campo('ap_paterno',3)?.errors.required && fueTocado('ap_paterno',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',3)?.invalid  && campo('ap_paterno',3)?.errors && campo('ap_paterno',3)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',3)?.invalid  && campo('ap_paterno',3)?.errors && campo('ap_paterno',3)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido materno:</ion-label>
+                                <ion-input formControlName="ap_materno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',3)?.invalid  && campo('ap_materno',3)?.errors && campo('ap_materno',3)?.errors.required && fueTocado('ap_materno',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',3)?.invalid  && campo('ap_materno',3)?.errors && campo('ap_materno',3)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',3)?.invalid  && campo('ap_materno',3)?.errors && campo('ap_materno',3)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Celular:</ion-label>
+                                <ion-input formControlName="celular" class="ion-margin-top" type="number" ><img class="chile" src="assets/icon/chile.png">9</ion-input>
+                                <ion-note slot="error" *ngIf="campo('celular',3)?.invalid  && campo('celular',3)?.errors && campo('celular',3)?.errors.required && fueTocado('celular',3)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('celular',3)?.invalid  && campo('celular',3)?.errors && campo('celular',3)?.errors.pattern">Celular invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                        </form>
+                      </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>
+                          {{this.formularioTutor1.controls['p_nombre'].value}}
+                          {{this.formularioTutor1.controls['ap_paterno'].value}}
+                        </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form action="" [formGroup]="formularioTutor1" class="ion-margin-top">
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Primer nombre:</ion-label>
+                                <ion-input formControlName="p_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',4)?.invalid  && campo('p_nombre',4)?.errors && campo('p_nombre',4)?.errors.required && fueTocado('p_nombre',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',4)?.invalid  && campo('p_nombre',4)?.errors && campo('p_nombre',4)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('p_nombre',4)?.invalid  && campo('p_nombre',4)?.errors && campo('p_nombre',4)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Segundo nombre:</ion-label>
+                                <ion-input formControlName="s_nombre" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',4)?.invalid  && campo('s_nombre',4)?.errors && campo('s_nombre',4)?.errors.required && fueTocado('s_nombre',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',4)?.invalid  && campo('s_nombre',4)?.errors && campo('s_nombre',4)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('s_nombre',4)?.invalid  && campo('s_nombre',4)?.errors && campo('s_nombre',4)?.errors.maxlength">Nombre demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Rut:</ion-label>
+                                <ion-input formControlName="rut" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('rut',4)?.invalid  && campo('rut',4)?.errors && campo('rut',4)?.errors.required && fueTocado('rut',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('rut',4)?.invalid  && campo('rut',4)?.errors && campo('rut',4)?.errors.pattern">Rut invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido paterno:</ion-label>
+                                <ion-input formControlName="ap_paterno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',4)?.invalid  && campo('ap_paterno',4)?.errors && campo('ap_paterno',4)?.errors.required && fueTocado('ap_paterno',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',4)?.invalid  && campo('ap_paterno',4)?.errors && campo('ap_paterno',4)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales </ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_paterno',4)?.invalid  && campo('ap_paterno',4)?.errors && campo('ap_paterno',4)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Apellido materno:</ion-label>
+                                <ion-input formControlName="ap_materno" class="ion-margin-top"></ion-input>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',4)?.invalid  && campo('ap_materno',4)?.errors && campo('ap_materno',4)?.errors.required && fueTocado('ap_materno',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',4)?.invalid  && campo('ap_materno',4)?.errors && campo('ap_materno',4)?.errors.pattern">Con mayuscula y sin espacios ni caracteres especiales</ion-note>
+                                <ion-note slot="error" *ngIf="campo('ap_materno',4)?.invalid  && campo('ap_materno',4)?.errors && campo('ap_materno',4)?.errors.maxlength">Apellido demasiado largo</ion-note>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col>
+                              <ion-item >
+                                <ion-label position="floating"  class="ion-margin-buttom">Celular:</ion-label>
+                                <ion-input formControlName="celular" class="ion-margin-top" type="number" ><img class="chile" src="assets/icon/chile.png">9</ion-input>
+                                <ion-note slot="error" *ngIf="campo('celular',4)?.invalid  && campo('celular',4)?.errors && campo('celular',4)?.errors.required && fueTocado('celular',4)">Obligatorio</ion-note>
+                                <ion-note slot="error" *ngIf="campo('celular',4)?.invalid  && campo('celular',4)?.errors && campo('celular',4)?.errors.pattern">Celular invalido</ion-note>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row class="ion-margin-top">
+                            <ion-col class="ion-text-center">
+                              <form action="" [formGroup]="formularioOpcionesTutor"  >
+                                <ion-label>Tutor del estudiante para todo el proceso formativo</ion-label>
+                                <ion-segment value="t" class="opciones"  formControlName="opcion" >
+                                <ion-segment-button value="t" (click)="opcionesTutor(1)">
+                                   <ion-label>{{this.formularioTutor0.value.p_nombre}} {{this.formularioTutor0.value.ap_paterno}}</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button   value="f" (click)="opcionesTutor(1)">
+                                  <ion-label>{{this.formularioTutor1.value.p_nombre}} {{this.formularioTutor1.value.ap_paterno}}</ion-label>
+                                </ion-segment-button>
+                              </ion-segment>
+                              </form>
+                            </ion-col>
+                          </ion-row>
+                        </form>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button (click)="levantar()">
+          Levantar perfil
+          <img src="assets/icon/agregar.png" class="icon" alt="">
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
