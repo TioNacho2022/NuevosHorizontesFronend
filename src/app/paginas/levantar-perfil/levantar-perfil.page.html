@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons>
       <ion-button mode="ios" color="light" [routerLink]="['/inicio']">
-        Regresar
+        Inicio
         <ion-icon slot="start" name="grid"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -25,7 +25,7 @@
           <ion-card-content>
             <ion-row>
               <ion-col>
-                <ion-card (click)="prueba()">
+                <ion-card>
                   <ion-card-header>
                     <ion-card-title>Estudiante</ion-card-title>
                     <ion-card-subtitle>Ingrese toda la informacion del estudiante</ion-card-subtitle>
@@ -127,11 +127,11 @@
             <ion-row>
               <ion-col>
                 <form action="" [formGroup]="formularioOpciones">
-                  <ion-segment formControlName="opcion" value="true" class="opciones"  mode="ios" color="" >
-                    <ion-segment-button (click)="opciones()" value="true" >
+                  <ion-segment formControlName="opcion" class="opciones"  mode="ios" color="succes">
+                    <ion-segment-button (click)="opciones()" value="apoderados" >
                       <ion-label>Apoderados</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button  (click)="opciones()" value="false">
+                    <ion-segment-button  (click)="opciones()" value="tutores">
                       <ion-label>Tutores</ion-label>
                     </ion-segment-button>
                   </ion-segment>
@@ -139,11 +139,11 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col  *ngIf="opcion">
-                <ion-card (click)="prueba()">
+              <ion-col  *ngIf="opcionApoderados">
+                <ion-card>
                   <ion-card-header>
                     <ion-card-title>Apoderados</ion-card-title>
-                    <ion-card-subtitle>Ingrese toda la informacion del estudiante</ion-card-subtitle>
+                    <ion-card-subtitle>Ingrese toda la informacion de Apoderados</ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>
                     <ion-card>
@@ -300,8 +300,8 @@
                   </ion-card-content>
                 </ion-card>
               </ion-col>
-              <ion-col  *ngIf="!opcion">
-                <ion-card (click)="prueba()">
+              <ion-col  *ngIf="opcionTutores">
+                <ion-card>
                   <ion-card-header>
                     <ion-card-title>Tutores</ion-card-title>
                     <ion-card-subtitle>Ingrese toda la informacion del los tutores</ion-card-subtitle>
@@ -462,16 +462,17 @@
                 </ion-card>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-center">
+                <ion-button (click)="levantar()">
+                  Levantar perfil
+                  <img src="assets/icon/agregar.png" class="icon" alt="">
+                </ion-button>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
+          <ion-progress-bar *ngIf="progreso" type="indeterminate" color="light"></ion-progress-bar>
         </ion-card>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <ion-button (click)="levantar()">
-          Levantar perfil
-          <img src="assets/icon/agregar.png" class="icon" alt="">
-        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

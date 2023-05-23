@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'levantar-perfil',
     loadChildren: () => import('./paginas/levantar-perfil/levantar-perfil.module').then( m => m.LevantarPerfilPageModule)
   },
+  {
+    path: 'estudiantes-pendientes',
+    loadChildren: () => import('./paginas/estudiantes-pendientes/estudiantes-pendientes.module').then( m => m.EstudiantesPendientesPageModule)
+  },
 ];
 
 @NgModule({

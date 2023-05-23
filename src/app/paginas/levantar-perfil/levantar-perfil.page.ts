@@ -20,7 +20,16 @@ export class LevantarPerfilPage implements OnInit {
   formularioOpciones:FormGroup | any;
   formularioOpcionesTutor:FormGroup | any;
 
-  opcion:boolean = true;
+  opcionApoderados:boolean = false;
+  opcionTutores:boolean = false;
+
+  idEstudiante:number = 0;
+  idApoderado0:number = 0;
+  idApoderado1:number = 0;
+  idTutor0:number = 0;
+  idTutor1:number = 0;
+
+  progreso:boolean = false;
 
   cursos:Array<any>=[
     {nombre:"1 Basico"},
@@ -64,7 +73,7 @@ export class LevantarPerfilPage implements OnInit {
       'ap_paterno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'ap_materno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'celular': new FormControl("",[Validators.required,Validators.pattern(/^([0-9]{8})$/)]),
-      'tutor': new FormControl("",[Validators.required]),
+      'tutor': new FormControl(""),
 
     })
 
@@ -75,7 +84,7 @@ export class LevantarPerfilPage implements OnInit {
       'ap_paterno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'ap_materno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'celular': new FormControl("",[Validators.required,Validators.pattern(/^([0-9]{8})$/)]),
-      'tutor': new FormControl("",[Validators.required]),
+      'tutor': new FormControl(""),
 
     })
 
@@ -86,7 +95,7 @@ export class LevantarPerfilPage implements OnInit {
       'ap_paterno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'ap_materno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'celular': new FormControl("",[Validators.required,Validators.pattern(/^([0-9]{8})$/)]),
-      'tutor': new FormControl("",[Validators.required]),
+      'tutor': new FormControl(""),
     })
 
     this.formularioTutor1 = this.fb.group({
@@ -96,7 +105,7 @@ export class LevantarPerfilPage implements OnInit {
       'ap_paterno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'ap_materno': new FormControl("",[Validators.required,Validators.pattern(/^([A-Z]{1}[a-z]+)+$/),Validators.maxLength(20)]),
       'celular': new FormControl("",[Validators.required,Validators.pattern(/^([0-9]{8})$/)]),
-      'tuto': new FormControl("",[Validators.required]),
+      'tutor': new FormControl(""),
     })
 
     this.formularioOpciones = this.fb.group({
@@ -112,11 +121,12 @@ export class LevantarPerfilPage implements OnInit {
   }
 
   public opciones(){
-    if(this.formularioOpciones.value.opcion == 'true'){
-      this.opcion = true;
-
-    }if(this.formularioOpciones.value.opcion == 'false'){
-      this.opcion = false;
+    if(this.formularioOpciones.value.opcion == 'apoderados'){
+      this.opcionApoderados = true;
+      this.opcionTutores = false;
+    }if(this.formularioOpciones.value.opcion == 'tutores'){
+      this.opcionTutores = true;
+      this.opcionApoderados = false;
     }
 
   }
@@ -126,35 +136,27 @@ export class LevantarPerfilPage implements OnInit {
       if(this.formularioOpcionesTutor.value.opcion == 't'){
         this.formularioApoderado0.value.tutor = 't';
         this.formularioApoderado1.value.tutor = 'f';
-        console.log(this.formularioApoderado0.value.tutor)
-        console.log(this.formularioApoderado1.value.tutor)
+
 
       }if(this.formularioOpcionesTutor.value.opcion == 'f'){
         this.formularioApoderado1.value.tutor = 't';
         this.formularioApoderado0.value.tutor = 'f';
-        console.log(this.formularioApoderado0.value.tutor)
-        console.log(this.formularioApoderado1.value.tutor)
+
       }
 
     }if(tipo == 1){
       if(this.formularioOpcionesTutor.value.opcion == 't'){
         this.formularioTutor0.value.tutor = 't';
         this.formularioTutor1.value.tutor = 'f';
-        console.log(this.formularioTutor0.value.tutor)
-        console.log(this.formularioTutor1.value.tutor)
       }if(this.formularioOpcionesTutor.value.opcion == 'f'){
         this.formularioTutor1.value.tutor = 't';
         this.formularioTutor0.value.tutor = 'f';
-        console.log(this.formularioTutor0.value.tutor)
-        console.log(this.formularioTutor1.value.tutor)
       }
     }
   }
 
-  public prueba(){
-    console.log(parseInt("9"+this.formularioApoderado0.value.celular))
-    console.log(this.formularioOpciones.value.opcion)
-  }
+
+
   ngOnInit(){
   }
 
@@ -189,66 +191,274 @@ export class LevantarPerfilPage implements OnInit {
 
 
   public async levantar(){
-    if(this.formularioEstudiante.valid){
 
 
-      if(this.formularioApoderado0.valid && this.formularioApoderado1.valid){
+    this.progreso = true;
 
-        if(this.formularioTutor0.invalid && this.formularioTutor1.invalid){
-          //mandar formulario de apoderado
+    if(this.formularioEstudiante.valid ){
 
-          this.api.levantarEstuidante(this.formularioEstudiante.value.rut,this.formularioEstudiante.value.p_nombre,this.formularioEstudiante.value.s_nombre,this.formularioEstudiante.value.ap_paterno,this.formularioEstudiante.value.ap_materno,this.formularioEstudiante.value.edad,this.formularioEstudiante.value.curso_ingreso,this.formularioEstudiante.value.genero,this.formularioEstudiante.value.activa);
-          console.log(this.api.resultadoEstudiante)
+      if(this.formularioOpciones.valid){
 
-        }else{
-          const alert = await this.alertController.create({
-            header: `Formulario incorrecto`,
-            mode:'ios',
-            message:'Por favor llenar solo un fomulario'
-          });
+        if(this.formularioOpciones.value.opcion == "apoderados"){
 
-          await alert.present();
-        }
+          if(this.formularioTutor0.invalid && this.formularioTutor1.invalid){
 
-      }if(this.formularioTutor0.valid && this.formularioTutor1.valid){
 
-        if(this.formularioApoderado0.invalid && this.formularioApoderado1.invalid){
+            if(this.formularioApoderado0.valid && this.formularioApoderado1.valid){
 
-          //mandar formulario de tutores
-        }else{
-          const alert = await this.alertController.create({
-            header: `Formulario incorrecto`,
-            mode:'ios',
-            message:'Por favor llenar solo un fomulario'
-          });
+              if(this.formularioOpcionesTutor.valid){
 
-          await alert.present();
-        }
+
+                this.api.levantarEstudiante(this.formularioEstudiante.value).subscribe(async res =>{
+
+                  if(res.add == true){
+
+                    this.idEstudiante= res.id;
+
+
+                    this.api.levantarApoderado(this.formularioApoderado0.value).subscribe(async res =>{
+
+
+                      if(res.add == true || res.exists==true){
+
+                        this.idApoderado0 = res.id;
+
+
+
+
+                        this.api.levantarApoderado(this.formularioApoderado1.value).subscribe(async res =>{
+
+
+
+                          if(res.add == true || res.exists == true){
+
+                            this.idApoderado1 =  await res.id;
+
+                            this.api.levantarDetalleApoderado(this.idEstudiante,this.idApoderado0,this.formularioApoderado0.value.tutor).subscribe(async res =>{
+
+                              if(res.add == true){
+
+                                this.api.levantarDetalleApoderado(this.idEstudiante,this.idApoderado1,this.formularioApoderado1.value.tutor).subscribe(async res =>{
+
+
+                                  if(res.add == true){
+
+                                    const alert = await this.alertController.create({
+                                      header: `Exito`,
+                                      message:`Perfil ${this.formularioEstudiante.value.p_nombre} ${this.formularioEstudiante.value.ap_paterno} levantado`,
+                                      mode:'ios',
+                                    })
+
+                                    await alert.present();
+
+                                    this.progreso = false;
+
+                                  };
+                                })
+
+
+                              }
+                            })
+
+
+                          };
+
+                        })
+
+                      };
+
+                    });
+
+                  }if(res.add == false){
+                    const alert = await this.alertController.create({
+                      header: `Formulario Invalido`,
+                      mode:'ios',
+                      message: `El estudiante ya se encuentra registrado`,
+                    });
+
+                    await alert.present();
+                  }
+
+                })
+
+              }else{
+                const alert = await this.alertController.create({
+                  header: `Formulario Invalido`,
+                  mode:'ios',
+                  message: `Seleccione un tutor academico`,
+                });
+
+                await alert.present();
+              }
+
+
+            }else{
+              const alert = await this.alertController.create({
+                header: `Formulario Invalido`,
+                mode:'ios',
+                message: `Verifique formulario de "Apoderados"`,
+              });
+
+              await alert.present();
+            }
+
+          }else{
+
+            const alert = await this.alertController.create({
+              header: `Formulario Invalido`,
+              mode:'ios',
+              message: `Complete un solo formulario"`,
+            });
+
+            await alert.present();
+          };
+
+        }if(this.formularioOpciones.value.opcion == "tutores"){
+
+          if(this.formularioApoderado0.invalid && this.formularioApoderado1.invalid){
+
+            if(this.formularioTutor0.valid && this.formularioTutor1.valid){
+
+              if(this.formularioOpcionesTutor.valid){
+
+                this.api.levantarEstudiante(this.formularioEstudiante.value).subscribe(async res =>{
+
+                  if(res.add == true){
+
+                    this.idEstudiante= res.id;
+
+
+                    this.api.levantarTutor(this.formularioTutor0.value).subscribe(async res =>{
+
+
+                      if(res.add == true || res.exists==true){
+
+                        this.idTutor0 = res.id;
+
+
+                        this.api.levantarTutor(this.formularioTutor1.value).subscribe(async res =>{
+
+
+
+                          if(res.add == true || res.exists == true){
+
+                            this.idTutor1 =  res.id;
+
+
+                            this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor0,this.formularioTutor0.value.tutor).subscribe(async res =>{
+
+                              if(res.add == true){
+
+                                this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor1,this.formularioTutor1.value.tutor).subscribe(async res =>{
+
+
+                                  if(res.add == true){
+
+                                    const alert = await this.alertController.create({
+                                      header: `Exito`,
+                                      message:`Perfil ${this.formularioEstudiante.value.p_nombre} ${this.formularioEstudiante.value.ap_paterno} levantado`,
+                                      mode:'ios',
+                                    })
+
+                                    await alert.present();
+
+                                    this.progreso = false;
+
+                                  };
+                                })
+
+
+                              }
+                            })
+
+
+                          };
+
+                        })
+
+                      };
+
+                    });
+
+                  }if(res.add == false){
+                    const alert = await this.alertController.create({
+                      header: `Formulario Invalido`,
+                      mode:'ios',
+                      message: `El estudiante ya se encuentra registrado`,
+                    });
+
+                    await alert.present();
+                  }
+
+                })
+
+              }else{
+                const alert = await this.alertController.create({
+                  header: `Formulario Invalido`,
+                  mode:'ios',
+                  message: `Seleccione un tutor academico`,
+                });
+
+                await alert.present();
+              }
+
+            }else{
+              const alert = await this.alertController.create({
+                header: `Formulario Invalido`,
+                mode:'ios',
+                message: `Verifique formulario de "Tutores"`,
+              });
+
+              await alert.present();
+            }
+
+          }else{
+
+            const alert = await this.alertController.create({
+              header: `Formulario Invalido`,
+              mode:'ios',
+              message: `Complete un solo formulario"`,
+            });
+
+            await alert.present();
+          };
+
+        };
+
+
+
+
+
       }else{
         const alert = await this.alertController.create({
-          header: `Datos invalidos`,
+          header: `Formulario Incompleto`,
           mode:'ios',
-          message:'Por favor llenar fomulario Padres o Tutores'
+          message: `Seleccione "Apoderados" o "Tutores"`,
         });
-
-
 
         await alert.present();
       }
 
 
 
+
+
+
     }else{
+
+      console.log(this.formularioOpciones)
+
       const alert = await this.alertController.create({
-        header: `Datos invalidos`,
+        header: `Datos ivalidos`,
         mode:'ios',
-        message:'Por favor llenar los campos de estudiante'
+        message: `Porfavor verifique el formulario de estudiantes`,
+
+
       });
-
-
 
       await alert.present();
     }
+
   }
 
 

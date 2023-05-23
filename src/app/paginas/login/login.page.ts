@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   formularioLogin: FormGroup | any;
 
   progreso:boolean= false;
+  res: any;
 
 
   constructor( private alertController: AlertController, private fb: FormBuilder,private api: ApiBackendService, private router:Router, private navCtrl: NavController, private toast: ToastController,) {
@@ -32,16 +33,17 @@ export class LoginPage implements OnInit {
   public async ingresar(){
 
     if(this.formularioLogin.valid){
+
       this.progreso = true;
 
-      await this.api.login(this.formularioLogin.value.correo,this.formularioLogin.value.password);
-      var res = this.api.res;
-      console.log(res?.usuario);
-      if(res?.usuario != undefined){
-        if(res?.usuario == true){
+      this.api.login(this.formularioLogin.value.correo,this.formularioLogin.value.password).subscribe(async res => {
+
+        if(res.auth == true){
+
           const alert = await this.alertController.create({
-            header: `Bienvenido ${res?.tipo}`,
+            header: `Bienvenido ${res.rol}`,
             mode:'ios',
+            message: `${res.usuario?.p_nombre} ${res.usuario?.ap_paterno}`,
 
 
           });
@@ -54,12 +56,10 @@ export class LoginPage implements OnInit {
 
 
           this.router.navigate(['/inicio'],{queryParams:{
-              tipo:res?.tipo,
-              id:res?.id
+            rol:this.res?.rol,
           }});
 
-
-        }else{
+        }if(res.auth == false){
           const alert = await this.alertController.create({
             header: `Contraseña o correo incorrecto`,
             mode:'ios',
@@ -70,9 +70,12 @@ export class LoginPage implements OnInit {
           await alert.present();
 
           this.formularioLogin.reset();
+        };
 
-        }
-      }
+      });
+
+
+
 
     }else{
       const alert = await this.alertController.create({
