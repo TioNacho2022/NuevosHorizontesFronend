@@ -1,0 +1,232 @@
++++++<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button mode="ios" color="light" [routerLink]="['/estudiantes-pendientes']">
+        Regresar
+        <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab slot="fixed" horizontal="end" vertical="center">
+    <ion-fab-button [routerLink]="['/asignacion']" [queryParams]="{id: this.id}">
+      <img src="../../../assets/icon/confirmar.png" alt="">
+    </ion-fab-button>
+  </ion-fab>
+ <ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header class="ion-text-center" color="primary">
+          <ion-card-title>{{estudiante?.p_nombre}} {{estudiante?.ap_paterno}}</ion-card-title>
+          <ion-card-subtitle>{{estudiante?.rut}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item color="light">
+              <ion-label>Rut: {{estudiante?.rut}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Primer nombre: {{estudiante?.p_nombre}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Segundo nombre: {{estudiante?.s_nombre}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Apellido paterno: {{estudiante?.ap_paterno}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Apellido materno: {{estudiante?.ap_materno}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Edad: {{estudiante?.edad}}</ion-label>
+            </ion-item>
+            <ion-item color="light">
+              <ion-label>Curso de ingreso: {{estudiante?.curso_ingreso}}</ion-label>
+            </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-card-title>Examenes</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card *ngFor="let e of examenes">
+            <ion-card-header class="ion-text-center" color="light">
+              <ion-card-title *ngIf="e?.diagnostico_asignatura_id == 1">Matematicas</ion-card-title>
+              <ion-card-title *ngIf="e?.diagnostico_asignatura_id == 2">Lenguaje</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+             <ion-row>
+              <ion-col class="ion-text-center" style="display: flex;align-items: center;justify-content: center;">
+                <ion-button [color]="e?.nota >= 4.0 ?'success': 'danger'" size="large">
+                  {{e?.nota}}
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="clear">Preguntas totales: {{e?.total_pregunta}}</ion-button>
+                <ion-button fill="clear" >Correctas: {{e?.correcta_pregunta}}</ion-button>
+                <ion-button fill="clear" >Incorrectas: {{e?.incorrecta_pregunta}}</ion-button>
+              </ion-col>
+             </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col *ngIf="apoderado">
+      <ion-card>
+        <ion-card-header class="ion-text-center" color="primary">
+          <ion-card-title>Apoderados</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <ion-card>
+                <ion-card-header class="ion-text-center" color="primary">
+                  <ion-card-title>{{datosApoderado0?.p_nombre}} {{datosApoderado0?.ap_paterno}}</ion-card-title>
+                  <ion-card-subtitle>{{datosApoderado0?.rut}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-item color="light">
+                    <ion-label>Rut: {{datosApoderado0?.rut}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Primer nombre: {{datosApoderado0?.p_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Segundo nombre: {{datosApoderado0?.s_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido paterno: {{datosApoderado0?.ap_paterno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido materno: {{datosApoderado0?.ap_materno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Celular: {{datosApoderado0?.celular}}</ion-label>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card>
+                <ion-card-header class="ion-text-center" color="primary">
+                  <ion-card-title>{{datosApoderado1?.p_nombre}} {{datosApoderado1?.ap_paterno}}</ion-card-title>
+                  <ion-card-subtitle>{{datosApoderado1?.rut}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-item color="light">
+                    <ion-label>Rut: {{datosApoderado1?.rut}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Primer nombre: {{datosApoderado1?.p_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Segundo nombre: {{datosApoderado1?.s_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido paterno: {{datosApoderado1?.ap_paterno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido materno: {{datosApoderado1?.ap_materno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Celular: {{datosApoderado1?.celular}}</ion-label>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <h2>Tutor para el proceso academico</h2>
+              <ion-button *ngIf="apoderado0.tutor == 't'" fill="clear">{{datosApoderado0?.p_nombre}} {{datosApoderado0?.ap_paterno}}</ion-button>
+              <ion-button *ngIf="apoderado1.tutor == 't'" fill="clear" fill="clear">{{datosApoderado1?.p_nombre}} {{datosApoderado1?.ap_paterno}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col *ngIf="tutor">
+      <ion-card>
+        <ion-card-header class="ion-text-center" color="primary">
+          <ion-card-title>Tutores</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <ion-card>
+                <ion-card-header class="ion-text-center" color="primary">
+                  <ion-card-title>{{datosTutor0?.p_nombre}} {{datosTutor0?.ap_paterno}}</ion-card-title>
+                  <ion-card-subtitle>{{datosTutor0?.rut}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-item color="light">
+                    <ion-label>Rut: {{datosTutor0?.rut}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Primer nombre: {{datosTutor0?.p_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Segundo nombre: {{datosTutor0?.s_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido paterno: {{datosTutor0?.ap_paterno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido materno: {{datosTutor0?.ap_materno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Celular: {{datosTutor0?.celular}}</ion-label>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card>
+                <ion-card-header class="ion-text-center" color="primary">
+                  <ion-card-title>{{datosTutor1?.p_nombre}} {{datosTutor1?.ap_paterno}}</ion-card-title>
+                  <ion-card-subtitle>{{datosTutor1?.rut}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-item color="light">
+                    <ion-label>Rut: {{datosTutor1?.rut}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Primer nombre: {{datosTutor1?.p_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Segundo nombre: {{datosTutor1?.s_nombre}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido paterno: {{datosTutor1?.ap_paterno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Apellido materno: {{datosTutor1?.ap_materno}}</ion-label>
+                  </ion-item>
+                  <ion-item color="light">
+                    <ion-label>Celular: {{datosTutor1?.celular}}</ion-label>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <h2>Tutor para el proceso academico</h2>
+              <ion-button *ngIf="tutor0.tutor == 't'" fill="clear">{{datosTutor0?.p_nombre}} {{datosTutor0?.ap_paterno}}</ion-button>
+              <ion-button *ngIf="tutor1.tutor == 't'" fill="clear" fill="clear">{{datosTutor1?.p_nombre}} {{datosTutor1?.ap_paterno}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-content>

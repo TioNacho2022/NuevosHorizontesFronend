@@ -55,9 +55,9 @@ export class LoginPage implements OnInit {
           this.formularioLogin.reset();
 
 
-          this.router.navigate(['/inicio'],{queryParams:{
-            rol:this.res?.rol,
-          }});
+
+          this.router.navigate(['/inicio'],{ queryParams: { rol:res?.rol,id:res?.usuario?.id}});
+
 
         }if(res.auth == false){
           const alert = await this.alertController.create({

@@ -36,6 +36,7 @@
                 <th scope="col">Apellido Materno</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -47,8 +48,18 @@
                 <td>{{e?.ap_paterno}}</td>
                 <td>{{e?.ap_materno}}</td>
                 <td>
-                  <ion-button color="light" >
+                  <ion-button color="light" [routerLink]="['/perfil']" [queryParams]="{id:e.id}">
                     <img   src="assets/icon/ficha-policial.png" class="icono-opciones" alt="">
+                  </ion-button>
+                </td>
+                <td>
+                  <ion-button color="light" [routerLink]="['/examen']" [queryParams]="{id:e.id}">
+                    <img   src="../../../assets/icon/reporte-de-negocios.png" class="icono-opciones" alt="">
+                  </ion-button>
+                </td>
+                <td>
+                  <ion-button color="light" [routerLink]="['/modificar-perfil']" [queryParams]="{id:e.id}">
+                    <img   src="../../../assets/icon/usuario (1).png" class="icono-opciones" alt="">
                   </ion-button>
                 </td>
                 <td>

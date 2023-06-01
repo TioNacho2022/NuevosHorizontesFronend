@@ -22,6 +22,22 @@ const routes: Routes = [
     path: 'estudiantes-pendientes',
     loadChildren: () => import('./paginas/estudiantes-pendientes/estudiantes-pendientes.module').then( m => m.EstudiantesPendientesPageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./paginas/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'examen',
+    loadChildren: () => import('./paginas/examen/examen.module').then( m => m.ExamenPageModule)
+  },
+  {
+    path: 'modificar-perfil',
+    loadChildren: () => import('./paginas/modificar-perfil/modificar-perfil.module').then( m => m.ModificarPerfilPageModule)
+  },
+  {
+    path: 'asignacion',
+    loadChildren: () => import('./paginas/asignacion/asignacion.module').then( m => m.AsignacionPageModule)
+  },
 ];
 
 @NgModule({

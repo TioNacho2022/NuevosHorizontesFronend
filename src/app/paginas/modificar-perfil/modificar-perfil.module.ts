@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InicioPageRoutingModule } from './inicio-routing.module';
+import { ModificarPerfilPageRoutingModule } from './modificar-perfil-routing.module';
 
-import { InicioPage } from './inicio.page';
+import { ModificarPerfilPage } from './modificar-perfil.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPageRoutingModule,
+    ModificarPerfilPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [InicioPage]
+  declarations: [ModificarPerfilPage]
 })
-export class InicioPageModule {}
+export class ModificarPerfilPageModule {}

@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button mode="ios" color="light" [routerLink]="['/estudiantes-pendientes']">
+        Regresar
+        <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-col>
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-card-title>Examen</ion-card-title>
+          <ion-card-subtitle>Ingrese los datos del examen</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <form action="" [formGroup]="formularioExamen" class="ion-margin-top">
+            <ion-row>
+              <ion-col>
+                <ion-item >
+                  <ion-label position="floating"  class="ion-margin-buttom">Preguntas correctas:</ion-label>
+                  <ion-input formControlName="correcta_pregunta" class="ion-margin-top" type="number"></ion-input>
+                  <ion-note slot="error" *ngIf="campo('correcta_pregunta')?.invalid  && campo('correcta_pregunta')?.errors && campo('correcta_pregunta')?.errors.required && fueTocado('correcta_pregunta')">Obligatorio</ion-note>
+                  <ion-note slot="error" *ngIf="campo('correcta_pregunta')?.invalid  && campo('correcta_pregunta')?.errors && campo('correcta_pregunta')?.errors.min">La cantidad minima de preguntas coorrectas es de 0</ion-note>
+                  <ion-note slot="error" *ngIf="campo('correcta_pregunta')?.invalid  && campo('correcta_pregunta')?.errors && campo('correcta_pregunta')?.errors.max">La cantidad maxima de preguntas corretas es de 60</ion-note>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item >
+                  <ion-label position="floating"  class="ion-margin-buttom">Preguntas incorrectas:</ion-label>
+                  <ion-input formControlName="incorrecta_pregunta" class="ion-margin-top" type="number"></ion-input>
+                  <ion-note slot="error" *ngIf="campo('incorrecta_pregunta')?.invalid  && campo('incorrecta_pregunta')?.errors && campo('incorrecta_pregunta')?.errors.required && fueTocado('incorrecta_pregunta')">Obligatorio</ion-note>
+                  <ion-note slot="error" *ngIf="campo('incorrecta_pregunta')?.invalid  && campo('incorrecta_pregunta')?.errors && campo('incorrecta_pregunta')?.errors.min">La cantidad minima de preguntas incorrectas es de 0</ion-note>
+                  <ion-note slot="error" *ngIf="campo('incorrecta_pregunta')?.invalid  && campo('incorrecta_pregunta')?.errors && campo('incorrecta_pregunta')?.errors.max">La cantidad maxima de preguntas incorrectas es de 60</ion-note>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item >
+                  <ion-label position="floating"  class="ion-margin-buttom">Total de preguntas:</ion-label>
+                  <ion-input formControlName="total_pregunta" class="ion-margin-top" type="number"></ion-input>
+                  <ion-note slot="error" *ngIf="campo('total_pregunta')?.invalid  && campo('total_pregunta')?.errors && campo('total_pregunta')?.errors.required && fueTocado('total_pregunta')">Obligatorio</ion-note>
+                  <ion-note slot="error" *ngIf="campo('total_pregunta')?.invalid  && campo('total_pregunta')?.errors && campo('total_pregunta')?.errors.min">La cantidad minima de preguntas  es de 1</ion-note>
+                  <ion-note slot="error" *ngIf="campo('total_pregunta')?.invalid  && campo('total_pregunta')?.errors && campo('total_pregunta')?.errors.max">La cantidad maxima de preguntas  es de 60</ion-note>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item >
+                  <ion-label position="floating"  class="ion-margin-buttom">Nota:</ion-label>
+                  <ion-input formControlName="nota" class="ion-margin-top" type="number"></ion-input>
+                  <ion-note slot="error" *ngIf="campo('nota')?.invalid  && campo('nota')?.errors && campo('nota')?.errors.required && fueTocado('nota')">Obligatorio</ion-note>
+                  <ion-note slot="error" *ngIf="campo('nota')?.invalid  && campo('nota')?.errors && campo('nota')?.errors.min">La nota minima es de 1</ion-note>
+                  <ion-note slot="error" *ngIf="campo('nota')?.invalid  && campo('nota')?.errors && campo('nota')?.errors.max">La nota maxima es de 7</ion-note>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="xs" style="display: flex;align-items: center;">
+                <ion-list>
+                  <ion-item>
+                    <ion-select  aria-label="Fruit" interface="popover" placeholder="Materia" formControlName="diagnostico_asignatura_id">
+                      <ion-select-option [value]="a.id" *ngFor="let a of asignaturas">{{a?.nombre}}</ion-select-option>
+                    </ion-select>
+
+                  </ion-item>
+                  <ion-note color="danger" slot="error" slot="end" *ngIf="campo('diagnostico_asignatura_id')?.invalid  && campo('diagnostico_asignatura_id')?.errors && campo('curso_ingreso')?.errors.required && fueTocado('curso_ingreso')">Obligatorio</ion-note>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-center">
+                <ion-button (click)="agregarExamen()">Agregar
+                  <img src="../../../assets/icon/agregar-archivo.png" class="icon" alt="">
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-card-content>
+        <ion-progress-bar *ngIf="progreso" type="indeterminate"></ion-progress-bar>
+      </ion-card>
+    </ion-col>
+  </ion-grid>
+</ion-content>

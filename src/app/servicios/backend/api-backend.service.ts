@@ -26,6 +26,51 @@ export class ApiBackendService {
       'Content-Type': 'application/json'
     }})
   }
+
+  public obtenerEstudiante(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Estudiante/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerApoderado(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Apoderado/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerTutor(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Tutor/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerExamenes(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Examen/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public modificarEstudiante(id:string|null,estudiante:any):Observable<any>{
+    var estudiante:any={
+      'rut': estudiante.rut,
+      'p_nombre':estudiante.p_nombre,
+      's_nombre': estudiante.s_nombre,
+      'ap_paterno':estudiante.ap_paterno,
+      'ap_materno': estudiante.ap_materno,
+      'edad': estudiante.edad,
+      'curso_ingreso' :estudiante.curso_ingreso,
+      'genero': estudiante.genero
+    };
+    return this.http.put(this.url+"Estudiante/"+id,estudiante,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
   public levantarEstudiante(estudiante:any):Observable<any>{
     var estudiante:any={
       'rut': estudiante.rut,
@@ -102,6 +147,23 @@ export class ApiBackendService {
     });
   }
 
+  public levantarExamen(examen:any,id:any):Observable<any>{
+    var examen:any={
+      'correcta_pregunta':examen.correcta_pregunta,
+      'incorrecta_pregunta': examen.incorrecta_pregunta,
+      'total_pregunta':examen.total_pregunta,
+      'nota': examen.nota,
+      'diagnostico_asignatura_id': examen.diagnostico_asignatura_id,
+      'estudiante_id': parseInt(id)
+
+    };
+
+    return this.http.post(this.url+"Examen",examen,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
   public obtenerDetalleApoderado(id:number):Observable<any>{
 
 
@@ -171,6 +233,43 @@ export class ApiBackendService {
       }
     });
   }
+
+  public obtenerCursos():Observable<any>{
+
+    return this.http.get(this.url+"Curso",{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public asignarCurso(id:string|null, curso_id:string):Observable<any>{
+
+    parseInt(curso_id);
+
+    return this.http.put(this.url+"Estudiante/"+id+"/Asignacion/"+curso_id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public confirmarContinuidad(id:string|null, respuesta:string):Observable<any>{
+
+
+    return this.http.put(this.url+"Estudiante/"+id+"/Continuidad?respuesta="+respuesta,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerDenegacion(id:string):Observable<any>{
+
+
+    return this.http.get(this.url+"Denegacion/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
 
 
 }

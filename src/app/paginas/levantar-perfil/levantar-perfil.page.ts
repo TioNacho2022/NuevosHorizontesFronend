@@ -174,6 +174,7 @@ export class LevantarPerfilPage implements OnInit {
     }
 
   }
+
   public fueTocado(control: string, tipo: number) {
     if(tipo == 0){
       return this.formularioEstudiante.get(control)?.touched;
@@ -328,7 +329,7 @@ export class LevantarPerfilPage implements OnInit {
                     this.idEstudiante= res.id;
 
 
-                    this.api.levantarTutor(this.formularioTutor0.value).subscribe(async res =>{
+                    this.api.levantarTutor(await this.formularioTutor0.value).subscribe(async res =>{
 
 
                       if(res.add == true || res.exists==true){
@@ -336,7 +337,7 @@ export class LevantarPerfilPage implements OnInit {
                         this.idTutor0 = res.id;
 
 
-                        this.api.levantarTutor(this.formularioTutor1.value).subscribe(async res =>{
+                        this.api.levantarTutor(await this.formularioTutor1.value).subscribe(async res =>{
 
 
 
@@ -345,11 +346,11 @@ export class LevantarPerfilPage implements OnInit {
                             this.idTutor1 =  res.id;
 
 
-                            this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor0,this.formularioTutor0.value.tutor).subscribe(async res =>{
+                            this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor0,await this.formularioTutor0.value.tutor).subscribe(async res =>{
 
                               if(res.add == true){
 
-                                this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor1,this.formularioTutor1.value.tutor).subscribe(async res =>{
+                                this.api.levantarDetalleTutor(this.idEstudiante,this.idTutor1,await this.formularioTutor1.value.tutor).subscribe(async res =>{
 
 
                                   if(res.add == true){
@@ -381,6 +382,7 @@ export class LevantarPerfilPage implements OnInit {
                     });
 
                   }if(res.add == false){
+
                     const alert = await this.alertController.create({
                       header: `Formulario Invalido`,
                       mode:'ios',
