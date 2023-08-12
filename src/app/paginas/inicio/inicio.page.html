@@ -1,18 +1,103 @@
 <ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-item>
+      <ion-item *ngIf="cargaDatosUsuario" button detail="true" [routerLink]="['/usuario']" [queryParams]="{id:this.id,rol:this.rol}">
         <ion-avatar slot="start">
-          <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+          <ion-img class="foto-icon" src="../../../assets/Gif/perfil.gif"></ion-img>
         </ion-avatar>
-        <ion-label>
-          <h2>Daniel Smith</h2>
-          <p>Product Designer</p>
+        <ion-label class="ion-text-wrap">
+          <h2>{{datosUsuario?.usuario?.p_nombre}} {{datosUsuario?.usuario?.ap_paterno}}</h2>
+          <p>{{datosUsuario?.rol}}</p>
         </ion-label>
+        <ion-label class="ion-text-center" color="primary"><h2>{{datosUsuario?.usuario?.curso?.nombre}}</h2></ion-label>
+      </ion-item>
+      <ion-item *ngIf="!cargaDatosUsuario" button detail="true" [routerLink]="['/usuario']" [queryParams]="{id:this.id,rol:this.rol}">
+        <ion-avatar slot="start">
+          <ion-img class="foto-icon" src="../../../assets/Gif/perfil.gif"></ion-img>
+        </ion-avatar>
+        <ion-label class="ion-text-wrap">
+          <h2><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></p>
+        </ion-label>
+        <ion-label class="ion-text-center" color="primary"><h2><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></h2></ion-label>
       </ion-item>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">This is the menu content.</ion-content>
+  <ion-content class="ion-padding" color="light">
+    <ion-grid>
+      <ion-row *ngIf="estudianteOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="misAsignaturas()" lines="full">
+            <ion-label>Mis notas</ion-label>
+            <ion-icon slot="end" name="checkmark-done-outline" [color]="mostrarNotas ==true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaNotas" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="profesorOpciones">
+        <ion-col>
+          <ion-item button="true" (click)="tomarAsistencia()" lines="full">
+            <ion-label>Tomar asistencia</ion-label>
+            <ion-icon name="reader" [color]="mostrarTomarAsistencia == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaAsistencia" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="estudianteOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="miAsistencia()" lines="full">
+            <ion-label>Mi asistencia</ion-label>
+            <ion-icon slot="end" name="calendar" [color]="mostrarAsistenciaEstudiante == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaAsistenciaEstudinte" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="estudianteOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="horarioEstudiante()" lines="full">
+            <ion-label>Mi horario</ion-label>
+            <ion-icon slot="end" name="time" [color]="mostrarHorarioEstudiante == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaHorarioEstudiante" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="apoderadoOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="misEstuidantes()" lines="full">
+            <ion-label>Mis estudiantes</ion-label>
+            <ion-icon slot="end" name="people-circle" [color]="mostrarEstudiantes == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaEstudiantes" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="profesorOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="agregarNotas()" lines="full">
+            <ion-label>Agregar notas</ion-label>
+            <ion-icon slot="end" name="checkmark-done" [color]="mostrarAgregarNotas == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaAgregarNotas" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="profesorOpciones">
+        <ion-col class="ion-text-center">
+          <ion-item button="true" (click)="horarioProfesor()" lines="full">
+            <ion-label>Mi horario</ion-label>
+            <ion-icon slot="end" name="time" [color]="mostrarHorarioProfesor == true ?'primary': 'medium'"></ion-icon>
+          </ion-item>
+          <ion-progress-bar *ngIf="cargaHorarioProfesor" type="indeterminate"></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="estudianteOpciones">
+        <ion-col class="ion-text-center">
+          <ion-card button="true" [routerLink]="['/matricula',this.id]">
+            <img src="../../../assets/Gif/carta.gif" alt="" class="icon-matricula">
+            <h3>Matricula</h3>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
   <ion-header>
@@ -21,15 +106,406 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-buttons slot="end">
-        <ion-button (click)="setOpen(true)">
-          <ion-icon name="notifications" ></ion-icon>
+        <ion-button (click)="setOpen(true)" >
+          <ion-icon name="notifications"></ion-icon>
           <ion-badge *ngIf="mostrarMensajes"  color="danger" slot="end" >{{numeroMensajes}}</ion-badge>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <ion-grid>
+      <ion-row *ngIf="mostrarTomarAsistencia">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Toma de asistencia</ion-card-title>
+                </ion-col>
+                <ion-col style="display: flex;align-items: center;justify-content: end;" >
+                  <ion-label>
+                    {{fechaAsistencia}}
+                  </ion-label>
+                  <ion-icon name="calendar" class="ion-margin-start"size="small"></ion-icon>
+                </ion-col>
+              </ion-row>
+              <form action="" [formGroup]="formularioAsistencia">
+              <ion-row>
+                  <ion-col size="xs">
+                    <ion-list>
+                      <ion-item color="primary"class="asistencia-filtro">
+                        <ion-select interface="action-sheet" placeholder="Asignatura" formControlName="asignatura_id" >
+                          <ion-select-option [value]="a?.id"*ngFor="let a of misAsignaturasProfesor?.asignaturas">{{a?.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="xs">
+                    <ion-list>
+                      <ion-item color="primary" class="asistencia-filtro" (click)="buscarCurso()">
+                        <ion-select  interface="action-sheet" placeholder="Curso" formControlName="curso_id">
+                          <ion-select-option [value]="c?.curso?.id" *ngFor="let c of misCursosProfesor?.detalles_curso">{{c?.curso?.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="xs">
+                    <ion-list>
+                      <ion-item color="primary" class="asistencia-filtro" (click)="buscarBloques()">
+                        <ion-select  interface="action-sheet" placeholder="Bloque" formControlName="bloque_id">
+                          <ion-select-option [value]="b?.bloque?.id" *ngFor="let b of misBloquesProfesor">{{b?.bloque?.dia?.nombre}} de {{b?.bloque?.horarioInicio}} a {{b?.bloque?.horarioFin}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="sm" style="display: flex;align-items: center;" >
+                    <ion-button class="iniciar-button" color="primary" shape="round" (click)="buscarEstudiantesCurso()">
+                      <ion-icon  name="play" color="light"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+              </ion-row>
+            </form>
+            </ion-card-header>
+            <ion-card-content>
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre del estudiante</th>
+                    <th scope="col">Rut</th>
+                    <th scope="col"class="ion-text-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ec of misEstudiantesAsitenciaProfesor">
+                    <td scope="col">{{ec?.p_nombre}} {{ec?.s_nombre}} {{ec?.ap_paterno}} {{ec?.ap_materno}}</td>
+                    <td scope="col">{{ec?.rut}}</td>
+                    <td scope="col">
+                      <ion-row>
+                        <ion-col class="ion-text-center">
+                          <ion-button color="primary" [disabled]="ec?.estado?.id == 1 ?'true': 'false'" (click)="cambiarEstado(ec?.id,ec?.estado?.id)" mode="ios" shape="round" size="small">
+                            Presente
+                          </ion-button>
+                        </ion-col>
+                        <ion-col class="ion-text-center">
+                          <ion-button color="danger" [disabled]="ec?.estado?.id == 2 ?'true': 'false'" (click)="cambiarEstado(ec?.id,ec?.estado?.id)" mode="ios" shape="round" size="small" >
+                            Ausente
+                          </ion-button>
+                        </ion-col>
+                      </ion-row>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ion-row *ngIf="mostrarBoton">
+                <ion-col>
+                  <ion-button (click)="guardarAsistencia()">Guardar</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarAgregarNotas">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Agregar notas</ion-card-title>
+                </ion-col>
+              </ion-row>
+              <form action="" [formGroup]="formularioNotasEstudiante">
+              <ion-row>
+                  <ion-col size="xs">
+                    <ion-list lines="full">
+                      <ion-item color="primary"class="asistencia-filtro">
+                        <ion-select interface="action-sheet" placeholder="Asignatura" formControlName="asignatura_id" >
+                          <ion-select-option [value]="a?.id"*ngFor="let a of misAsignaturasProfesorAgregarNotas?.asignaturas">{{a?.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="xs">
+                    <ion-list lines="full">
+                      <ion-item color="primary" class="asistencia-filtro" (click)="buscarCursoAgregarNotas()">
+                        <ion-select  interface="action-sheet" placeholder="Curso" formControlName="curso_id">
+                          <ion-select-option [value]="c?.curso?.id" *ngFor="let c of misCursosProfesorAgregarNotas?.detalles_curso">{{c?.curso?.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="xs">
+                    <ion-list lines="full">
+                      <ion-item color="primary" class="asistencia-filtro">
+                        <ion-select  interface="action-sheet" placeholder="Evaluacion" formControlName="evaluacion_id">
+                          <ion-select-option [value]="e?.id" *ngFor="let e of misEvaluacionesAgregarNotasProfesor?.evaluaciones">{{e?.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="sm" style="display: flex;align-items: center;" >
+                    <ion-button  color="primary" shape="round" (click)="buscarEstudiantesCursoAgregarNotas()">
+                      <ion-icon  name="search-outline" color="light"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+              </ion-row>
+            </form>
+            </ion-card-header>
+            <ion-card-content>
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre del estudiante</th>
+                    <th scope="col">Rut</th>
+                    <th scope="col"class="ion-text-center">Nota</th>
+                    <th scope="col"class="ion-text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ec of misEstudiantesAgregarNotasProfesor">
+                    <td scope="col" >{{ec?.p_nombre}} {{ec?.s_nombre}} {{ec?.ap_paterno}} {{ec?.ap_materno}}</td>
+                    <td scope="col" >{{ec?.rut}}</td>
+                    <td scope="col" >
+                      <form action="" [formGroup]="formularioNotasEstudiante">
+                        <ion-input  class="ion-text-center nota-agregar"   formControlName="nota" type="number" formControlName="nota"></ion-input>
+                        <ion-note color="danger" *ngIf="formularioNotasEstudiante.get('nota').hasError('required') && formularioNotasEstudiante.get('nota').touched">La nota es requerida</ion-note>
+                        <ion-note color="danger" *ngIf="formularioNotasEstudiante.get('nota').hasError('min')">La nota minima es 1</ion-note>
+                        <ion-note color="danger" *ngIf="formularioNotasEstudiante.get('nota').hasError('max')">La nota maxima es 7</ion-note>
+                      </form>
+                    </td>
+                    <td scope="col">
+
+                      <ion-button color="primary" [disabled]="ec?.estado?.id == 1 ?'true': 'false'" (click)="guardarNota(ec?.id)" mode="ios" shape="round" size="small">
+                        Guardar
+                      </ion-button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarNotas">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Mis notas</ion-card-title>
+                  <ion-card-subtitle>Notas del curso</ion-card-subtitle>
+                </ion-col>
+                <ion-col style="display: flex;align-items: center;justify-content: center;">
+                  <ion-label>
+                    <h2 class="promedio">Promedio {{notas?.promedio}}</h2>
+                  </ion-label>
+                </ion-col>
+                <ion-col style="display: flex;align-items: center;justify-content: end;">
+                  <h4>{{datosUsuario?.usuario?.curso?.nombre}}</h4>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row >
+                <ion-col>
+                  <ion-button *ngFor="let n of misAsignaturasData?.detalles_curso" mode="ios" fill="outline" (click)="verNotas(n?.asignatura?.id) " >{{n?.asignatura?.nombre}}</ion-button>
+                </ion-col>
+                <ion-col style="display: flex;align-items: center; justify-content: center;">
+
+                      <ion-label class="datos-nota">
+                        Asignatura {{asignaturaVista}}
+                      </ion-label>
+
+                      <ion-label class="datos-nota ion-margin-start">
+                        Profesor {{profesorVista}}
+                      </ion-label>
+
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col">Evaluacion</th>
+                            <th class="ion-text-center" scope="col">Nota</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let nt of notas?.notas">
+                            <td><ion-label>{{nt?.evaluacion?.nombre}}</ion-label></td>
+                            <td class="ion-text-center"><ion-label [color]="nt?.nota >= 4.0 ?'dark': 'danger'">{{nt?.nota}}</ion-label></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarHorarioEstudiante">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col style="display:flex;align-items: center;">
+                  <ion-card-title>Mi horario</ion-card-title>
+                </ion-col>
+                <ion-col style="display: flex;flex-direction:column;align-items: end;">
+                  <h5>{{datosUsuario?.usuario?.curso?.nombre}}</h5>
+                  <h5>{{datosUsuario?.usuario?.curso?.sala?.numero}}</h5>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col>
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="ion-text-center">Lunes</th>
+                            <th scope="col" class="ion-text-center">Martes</th>
+                            <th scope="col" class="ion-text-center">Miercoles</th>
+                            <th scope="col" class="ion-text-center">Jueves</th>
+                            <th scope="col" class="ion-text-center">Viernes</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let h of this.miHorarioEstudiante.horario" class="fila-tabla">
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Lunes'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Lunes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Martes'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Martes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Miercoles'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Miercoles'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Jueves'}" >
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Jueves'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Viernes'}" >
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Viernes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                              </ion-label>
+                            </td>
+
+                          </tr>
+
+
+                        </tbody>
+                      </table>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarHorarioProfesor">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Mi horario</ion-card-title>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col>
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="ion-text-center">Lunes</th>
+                            <th scope="col" class="ion-text-center">Martes</th>
+                            <th scope="col" class="ion-text-center">Miercoles</th>
+                            <th scope="col" class="ion-text-center">Jueves</th>
+                            <th scope="col" class="ion-text-center">Viernes</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let h of this.miHorarioProfesor.horario" class="fila-tabla">
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Lunes'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Lunes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Curso: {{h?.horario?.curso?.nombre}}</h3>
+                                <h3 class="horario-profesor">Sala: {{h?.horario?.curso?.sala?.numero}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Martes'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Martes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Curso: {{h?.horario?.curso?.nombre}}</h3>
+                                <h3 class="horario-profesor">Sala: {{h?.horario?.curso?.sala?.numero}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Miercoles'}">
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Miercoles'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Curso: {{h?.horario?.curso?.nombre}}</h3>
+                                <h3 class="horario-profesor">Sala: {{h?.horario?.curso?.sala?.numero}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Jueves'}" >
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Jueves'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Curso: {{h?.horario?.curso?.nombre}}</h3>
+                                <h3 class="horario-profesor">Sala: {{h?.horario?.curso?.sala?.numero}}</h3>
+                              </ion-label>
+                            </td>
+                            <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Viernes'}" >
+                              <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Viernes'">
+                                <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                                <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                                <h3 class="horario-profesor">Curso: {{h?.horario?.curso?.nombre}}</h3>
+                                <h3 class="horario-profesor">Sala: {{h?.horario?.curso?.sala?.numero}}</h3>
+                              </ion-label>
+                            </td>
+
+                          </tr>
+
+
+                        </tbody>
+                      </table>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
       <ion-row *ngIf="asistenteAdmision">
         <ion-col>
           <ion-card class="matricula" color="light">
@@ -68,6 +544,125 @@
                      </ion-button>
                     </ion-card-content>
                   </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarEstudiantes">
+        <ion-col>
+          <ion-card class="matricula" color="primary">
+            <ion-card-header>
+              <ion-card-title>
+                Estudiantes
+              </ion-card-title>
+              <ion-card-subtitle>
+                Revisa informacion online de tus estudiantes
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col>
+                  <ion-list lines="full" [inset]="true">
+                    <ion-item *ngFor="let e of datosEstudiantes.estudiantes">
+
+
+
+                          <img slot="start" src="../../../assets/icon/usuario (2).png" alt="" class="user-icon">
+
+
+                          <ion-label slot="start" class="ion-text-wrap">
+                            <h2>{{e?.p_nombre}} {{e?.ap_paterno}}</h2>
+                            <p>{{e?.rut}}</p>
+                          </ion-label>
+
+
+
+
+                              <ion-button slot="end" [routerLink]="['/notas-estudiante',e?.id]">
+                                <ion-icon name="checkmark-done-outline" ></ion-icon>
+                              </ion-button>
+
+                              <ion-button slot="end" [routerLink]="['/asistencia-estudiante',e?.id]">
+                                <ion-icon name="calendar"></ion-icon>
+                              </ion-button>
+
+                              <ion-button slot="end" [routerLink]="['/horario-estudiante',e?.id]">
+                                <ion-icon name="time"></ion-icon>
+                              </ion-button>
+
+
+
+
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="mostrarAsistenciaEstudiante">
+        <ion-col>
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Mi asistencia</ion-card-title>
+                  <form action="" [formGroup]="formularioAsistenciaEstudiante">
+                    <ion-row>
+                        <ion-col size="xs">
+                          <ion-item color="primary"class="asistencia-filtro">
+                            <ion-select interface="action-sheet" placeholder="Asignatura" formControlName="asignatura_id" >
+                              <ion-select-option [value]="n?.asignatura?.id" *ngFor="let n of misAsignaturasData?.detalles_curso">{{n?.asignatura?.nombre}}</ion-select-option>
+                            </ion-select>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col size="xs" style="display: flex;align-items: center;">
+                          <ion-button (click)="verAsistencia()">
+                            <ion-icon name="search-outline"></ion-icon>
+                          </ion-button>
+                        </ion-col>
+                    </ion-row>
+                  </form>
+                </ion-col>
+                <ion-col style="display: flex;align-items: center;justify-content: start;">
+
+                  <ion-label>
+                    <h2 class="porcentaje"> {{datosAsistenciaEstudiante?.porcentaje}}%</h2>
+                    <h3>({{datosAsistenciaEstudiante?.asistencias_Presente}} DE {{datosAsistenciaEstudiante?.asistencias_Totales}} CLASES)</h3>
+                  </ion-label>
+
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col"class="ion-text-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let a of datosAsistenciaEstudiante?.asistencias">
+                    <td scope="col">
+                      <ion-label for="" [color]="a?.estado?.id == 2 ? 'danger':'medium'"> {{a?.bloque?.dia?.nombre |uppercase}}, {{a?.fecha}}, de {{a?.bloque?.horarioInicio}} a {{a?.bloque?.horarioFin}}</ion-label>
+                    </td>
+                    <td scope="col" class="ion-text-center">
+                      <ion-button [color]="a?.estado?.id == 1 ?'primary': 'danger'"  mode="ios" shape="round" size="small">
+                        {{a?.estado?.nombre}}
+                      </ion-button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ion-row *ngIf="mostrarBoton">
+                <ion-col>
+                  <ion-button (click)="guardarAsistencia()">Guardar</ion-button>
                 </ion-col>
               </ion-row>
             </ion-card-content>
@@ -132,5 +727,7 @@
         </ng-template>
       </ion-modal>
     </ion-grid>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
   </ion-content>
 </div>

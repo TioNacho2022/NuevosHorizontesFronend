@@ -1,0 +1,95 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button mode="ios" color="light" [routerLink]="['/inicio']">
+        Inicio
+        <ion-icon slot="start" name="grid"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row *ngIf="mostrarHorario">
+      <ion-col>
+        <ion-card>
+          <ion-card-header color="primary">
+            <ion-row>
+              <ion-col>
+                <ion-card-title>{{datosEstudiante?.usuario?.p_nombre}} {{datosEstudiante?.usuario?.ap_paterno}}</ion-card-title>
+                <ion-card-subtitle>{{datosEstudiante?.usuario?.rut}}</ion-card-subtitle>
+              </ion-col>
+              <ion-col class="ion-text-center">
+                <ion-card-title>Horario</ion-card-title>
+              </ion-col>
+              <ion-col style="display: flex;flex-direction:column;align-items: end;">
+                <h5>{{datosEstudiante?.usuario?.curso?.nombre}}</h5>
+                <h5>{{datosEstudiante?.usuario?.curso?.sala?.numero}}</h5>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                    <table class="table table-light">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="ion-text-center">Lunes</th>
+                          <th scope="col" class="ion-text-center">Martes</th>
+                          <th scope="col" class="ion-text-center">Miercoles</th>
+                          <th scope="col" class="ion-text-center">Jueves</th>
+                          <th scope="col" class="ion-text-center">Viernes</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let h of this.miHorarioEstudiante.horario" class="fila-tabla">
+                          <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Lunes'}">
+                            <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Lunes'">
+                              <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                              <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                              <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                            </ion-label>
+                          </td>
+                          <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Martes'}">
+                            <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Martes'">
+                              <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                              <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                              <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                            </ion-label>
+                          </td>
+                          <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Miercoles'}">
+                            <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Miercoles'">
+                              <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                              <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                              <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                            </ion-label>
+                          </td>
+                          <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Jueves'}" >
+                            <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Jueves'">
+                              <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                              <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                              <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                            </ion-label>
+                          </td>
+                          <td [ngClass]="{'horario-bloque': h?.bloque?.dia?.nombre ==='Viernes'}" >
+                            <ion-label *ngIf="h?.bloque?.dia?.nombre == 'Viernes'">
+                              <h3>{{h?.bloque?.horarioInicio}} - {{h?.bloque?.horarioFin}}</h3>
+                              <h2 class="horario-asignatura">{{h?.horario?.asignatura?.nombre}}</h2>
+                              <h3 class="horario-profesor">Profesor: {{h?.horario?.asignatura?.profesor?.nombre}}</h3>
+                            </ion-label>
+                          </td>
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

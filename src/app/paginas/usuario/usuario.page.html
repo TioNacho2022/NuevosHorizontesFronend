@@ -1,0 +1,264 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/inicio']">
+        <ion-icon name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card style="width:800px;" class="card-info">
+          <ion-card-header>
+            <ion-row>
+              <ion-col>
+                <ion-avatar class="ion-margin">
+                  <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label color="primary" class="ion-margin">{{this.usuario?.rol}}</ion-label>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-icon name="cog" size="large" color="medium" class="ion-margin-top"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-row>
+                <ion-col>
+                  <ion-label color="medium" >Nombre completo</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.p_nombre}}</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.s_nombre}}</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.ap_paterno}}</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.ap_materno}}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+            <ion-item>
+              <ion-row>
+                <ion-col>
+                  <ion-label color="medium" >Rut</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.rut}}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+            <ion-item>
+              <ion-row>
+                <ion-col>
+                  <ion-label color="medium" >Correo</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.correo}}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+            <ion-item>
+              <ion-row>
+                <ion-col>
+                  <ion-label color="medium" >Edad</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label>{{usuario?.usuario?.edad}}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="mostrarTutores">
+      <ion-col>
+        <ion-card class="card-info">
+          <ion-card-header>
+            <ion-row>
+              <ion-col>
+                <ion-card-title class="ion-margin">Tutores</ion-card-title>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col *ngFor="let t of tutores">
+                <ion-card>
+                  <ion-row>
+                    <ion-col>
+                      <ion-badge *ngIf=" t?.tutor == 't' " class="tutor" mode="ios" color="danger">Encargado del estudiante</ion-badge>
+                    </ion-col>
+                  </ion-row>
+                  <ion-card-header>
+                    <ion-row>
+                      <ion-col>
+                        <ion-avatar class="ion-margin">
+                          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary" class="ion-margin">{{t?.rol}}</ion-label>
+                      </ion-col>
+                      <ion-col class="ion-text-end">
+                        <ion-icon name="cog" size="large" color="medium" class="ion-margin-top"></ion-icon>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Nombre completo</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.p_nombre}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.s_nombre}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.ap_paterno}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.ap_materno}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Rut</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.rut}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Correo</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.correo}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Celular</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{t?.usuario?.celular}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="mostrarApoderados">
+      <ion-col>
+        <ion-card class="card-info">
+          <ion-card-header>
+            <ion-row>
+              <ion-col>
+                <ion-card-title class="ion-margin">Apoderados</ion-card-title>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col *ngFor="let a of apoderados">
+                <ion-card>
+                  <ion-row>
+                    <ion-col>
+                      <ion-badge *ngIf=" a?.tutor == 't' " class="tutor" mode="ios" color="danger">Encargado del estudiante</ion-badge>
+                    </ion-col>
+                  </ion-row>
+                  <ion-card-header>
+                    <ion-row>
+                      <ion-col>
+                        <ion-avatar class="ion-margin">
+                          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary" class="ion-margin">{{a?.rol}}</ion-label>
+                      </ion-col>
+                      <ion-col class="ion-text-end">
+                        <ion-icon name="cog" size="large" color="medium" class="ion-margin-top"></ion-icon>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Nombre completo</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.p_nombre}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.s_nombre}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.ap_paterno}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.ap_materno}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Rut</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.rut}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Correo</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.correo}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                    <ion-item>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label color="medium" >Celular</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label>{{a?.usuario?.celular}}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

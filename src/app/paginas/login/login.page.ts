@@ -41,7 +41,8 @@ export class LoginPage implements OnInit {
         if(res.auth == true){
 
           const alert = await this.alertController.create({
-            header: `Bienvenido ${res.rol}`,
+            header: `Bienvenido `,
+            subHeader:`${res.rol}`,
             mode:'ios',
             message: `${res.usuario?.p_nombre} ${res.usuario?.ap_paterno}`,
 
@@ -79,7 +80,7 @@ export class LoginPage implements OnInit {
 
     }else{
       const alert = await this.alertController.create({
-        header: 'Campos invalidos',
+        header: 'Campos incorrectos',
         mode:'ios',
 
       });

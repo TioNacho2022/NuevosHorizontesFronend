@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { ApiBackendService } from 'src/app/servicios/backend/api-backend.service';
@@ -25,7 +25,7 @@ export class AsignacionPage implements OnInit {
   progress:boolean = false;
   progress0:boolean = false;
 
-  constructor(private route:ActivatedRoute, private alertController: AlertController, private fb: FormBuilder,private api: ApiBackendService) {
+  constructor(private route:ActivatedRoute, private alertController: AlertController, private fb: FormBuilder,private api: ApiBackendService,private router:Router) {
 
     this.formularioAsignacion = this.fb.group({
       'curso_id': new FormControl("", [Validators.required]),
@@ -39,7 +39,7 @@ export class AsignacionPage implements OnInit {
     this.id= this.route.snapshot.queryParamMap.get('id');
 
     this.api.obtenerEstudiante(this.id).subscribe(res=>{
-      this.estudiante = res;
+      this.estudiante = res.usuario;
 
       this.api.obtenerCursos().subscribe(res=>{
         this.cursos = res;
@@ -91,6 +91,8 @@ export class AsignacionPage implements OnInit {
           this.cursoAsigandoo = null;
 
           this.progress = false;
+
+          this.router.navigate(['/estudiantes-pendientes']);
 
 
         }

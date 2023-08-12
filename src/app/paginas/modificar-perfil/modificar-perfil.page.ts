@@ -68,7 +68,7 @@ export class ModificarPerfilPage implements OnInit {
     this.progreso = true;
 
     this.api.obtenerEstudiante(this.id).subscribe(res=>{
-
+      res = res.usuario;
 
       this.formularioEstudiante.setValue({
         rut:res.rut,

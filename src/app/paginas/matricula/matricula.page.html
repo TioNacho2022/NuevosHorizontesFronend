@@ -1,0 +1,211 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button mode="ios" color="light" [routerLink]="['/inicio']">
+        Inicio
+        <ion-icon slot="start" name="grid"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template >
+      <ion-content class="ion-padding" color="light">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <img class="logo-mensaje" src="../../../assets/icon/cheque.png" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <h4 class="titulo-mensaje">Pago realizado con exito</h4>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="full">
+                <ion-label>
+                  <h3>Fecha</h3>
+                </ion-label>
+                <ion-label slot="end" color="medium">
+                  <h3>{{fecha}}</h3>
+                </ion-label>
+              </ion-item>
+              <ion-item lines="full">
+                <ion-label>
+                  <h3>N° Orden</h3>
+                </ion-label>
+                <ion-label slot="end" color="medium">
+                  <h3>{{numero_orden}}</h3>
+                </ion-label>
+              </ion-item>
+              <ion-item lines="full">
+                <ion-label>
+                  <h3>Monto</h3>
+                </ion-label>
+                <ion-label slot="end" color="primary">
+                  <h3>{{valor | currency : 'CLP'}}</h3>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [isOpen]="isModalOpenFalse">
+    <ng-template >
+      <ion-content class="ion-padding" color="light">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <img class="logo-mensaje" src="../../../assets/icon/cerca.png" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <h4 class="titulo-mensaje">Hubo un error en el pago</h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [isOpen]="isModalOpenNulo">
+    <ng-template >
+      <ion-content class="ion-padding" color="light">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <img class="logo-mensaje" src="../../../assets/icon/cerca.png" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <h4 class="titulo-mensaje">Su pago no se completo</h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card color="light">
+          <ion-row>
+            <ion-col>
+              <img src="../../../assets/icon/nuevos_horizontes_h.png" alt="">
+            </ion-col>
+            <ion-col *ngIf="datosCargados" style="display: flex;flex-direction: column;justify-content: center;">
+              <ion-row >
+                <ion-col>
+                  <ion-item lines="full" color="light">
+                    <ion-label color="medium">
+                      <h1>Matricula</h1>
+                    </ion-label>
+                    <ion-label slot="end">
+                      <h2 class="fecha">{{matricula?.matricula?.fecha}}</h2>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item color="light" lines="full">
+                    <ion-label color="primary">
+                      <h2>{{matricula?.matricula?.estudiante?.p_nombre}} {{matricula?.matricula?.estudiante?.ap_paterno}}</h2>
+                      <h2>{{matricula?.matricula?.estudiante?.rut}}</h2>
+                    </ion-label>
+                    <ion-label *ngIf="matricula?.matricula?.pagada == 't' "color="success" class="ion-text-center" slot="end">
+                      <h2>Pagada</h2>
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                    </ion-label>
+                    <ion-label *ngIf="matricula?.matricula?.pagada == 'f' "color="danger" class="ion-text-center" slot="end">
+                      <h2>Pagada</h2>
+                      <ion-icon name="close-circle"></ion-icon>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item color="medium">
+                    <ion-label slot="start">
+                      <h1>Valor</h1>
+                    </ion-label>
+                    <ion-label slot="end">
+                      <h1>{{matricula?.matricula?.valor  | currency :'CLP'}}</h1>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="matricula?.matricula?.pagada == 'f'">
+                <ion-col class="ion-text-end">
+                  <ion-button mode="android" (click)="pagar()">
+                    Pagar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col *ngIf="!datosCargados" style="display: flex;flex-direction: column;justify-content: center;">
+              <ion-row >
+                <ion-col>
+                  <ion-item lines="full" color="light">
+                    <ion-label color="medium">
+                      <h1>Matricula</h1>
+                    </ion-label>
+                    <ion-label slot="end">
+                      <h2 class="fecha"><ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></h2>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item color="light" lines="full">
+                    <ion-label color="primary">
+                      <h2><ion-skeleton-text [animated]="true" style="width: 120px"></ion-skeleton-text></h2>
+                      <h2><ion-skeleton-text [animated]="true" style="width: 110px"></ion-skeleton-text></h2>
+                    </ion-label>
+                    <ion-label *ngIf="matricula?.matricula?.pagada == 't' "color="success" class="ion-text-center" slot="end">
+                      <h2><ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></h2>
+                      <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
+                    </ion-label>
+                    <ion-label *ngIf="matricula?.matricula?.pagada == 'f' "color="danger"  slot="end">
+                      <h2><ion-skeleton-text [animated]="true" style="width: 60px"></ion-skeleton-text></h2>
+                      <ion-skeleton-text [animated]="true" style="width: 60px"></ion-skeleton-text>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item color="medium">
+                    <ion-label slot="start">
+                      <h1>Valor</h1>
+                    </ion-label>
+                    <ion-label slot="end">
+                      <h1><ion-skeleton-text [animated]="true" style="width: 150px"></ion-skeleton-text></h1>
+                    </ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="matricula?.matricula?.pagada == 'f'">
+                <ion-col class="ion-text-end">
+                  <ion-button mode="android" (click)="pagar()">
+                    Pagar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

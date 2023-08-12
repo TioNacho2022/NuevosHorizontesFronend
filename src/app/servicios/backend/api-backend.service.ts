@@ -270,6 +270,132 @@ export class ApiBackendService {
     });
   }
 
+  public obtenerEmpleado(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Empleado/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerDetallesCurso(id:string|null):Observable<any>{
+    return this.http.get(this.url+"DetalleCurso/id?curso_id="+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerNotas(asignatura_id:string|null,estudiante_id:string|null):Observable<any>{
+    return this.http.get(this.url+`Nota?asignatura_id=${asignatura_id}&estudiante_id=${estudiante_id}`,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerProfesor(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Profesor/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerAsignaturaProfesor(id:string|null):Observable<any>{
+    return this.http.get(this.url+"Asignatura/"+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerDetallesCursoAsignatura(id:string|null):Observable<any>{
+    return this.http.get(this.url+"DetalleCurso/asignatura_id?asignatura_id="+id,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerAsignaturaBloques(asignatura_id:string|null,curso_id:string|null):Observable<any>{
+    return this.http.get(this.url+`DetalleHorario/${asignatura_id}/${curso_id}`,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public obtenerEstudiantesCurso(id:string|null):Observable<any>{
+    return this.http.get(this.url+`Estudiante/Curso/${id}`,{headers: {
+      'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public guardarAsistencia(asistencia:any):Observable<any>{
+    return this.http.post<JSON>(this.url+'Asistencia',asistencia,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerAsistenciaEstudiante(asignatura_id:any,curso_id:any,estudiante_id:any):Observable<any>{
+    return this.http.get<JSON>(this.url+`Asistencia/${asignatura_id}/${curso_id}/${estudiante_id}`,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerEstudiantesApoderado(id:string|null):Observable<any>{
+    return this.http.get<JSON>(this.url+`Apoderado/${id}/Estudiantes`,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerEstudiantesTutor(id:string|null):Observable<any>{
+    return this.http.get<JSON>(this.url+`Tutor/${id}/Estudiantes`,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerEvaluaciones():Observable<any>{
+    return this.http.get<JSON>(this.url+`Evaluacion`,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public agregarNota(nota:any):Observable<any>{
+    return this.http.post<JSON>(this.url+`Nota`,nota,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerMatriculaEstudiante(estudiante_id:any):Observable<any>{
+    return this.http.get<JSON>(this.url+`Matricula/`+estudiante_id,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public pagarMatricula(pago_matricula:any):Observable<any>{
+    return this.http.post<JSON>(this.url+`Matricula/Pago`,pago_matricula,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public resultadoPagoMatricula(estudiante_id:any, token_ws:any):Observable<any>{
+    var resultado = {
+      estudiante_id: estudiante_id,
+      token_ws: token_ws
+    }
+    return this.http.post<JSON>(this.url+`Matricula/Pago/Respuesta`,resultado,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerHorarioEstudiante(estudiante_id:any):Observable<any>{
+    return this.http.get<JSON>(this.url+`Horario/Estudiante/`+estudiante_id,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
+  public obtenerHorarioProfesor(profesor_id:any):Observable<any>{
+    return this.http.get<JSON>(this.url+`Horario/Profesor/`+profesor_id,{headers: {
+      'Content-Type': 'application/json'
+    }})
+  }
+
 
 
 }

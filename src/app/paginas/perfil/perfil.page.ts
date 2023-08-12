@@ -74,7 +74,8 @@ export class PerfilPage implements OnInit {
 
     this.api.obtenerEstudiante(this.id).subscribe(res=>{
 
-      this.estudiante=res;
+      this.estudiante=res.usuario;
+      console.log(this.estudiante)
 
       this.api.obtenerDetalleApoderado(this.estudiante.id).subscribe(res=>{
 
@@ -87,12 +88,12 @@ export class PerfilPage implements OnInit {
           this.apoderado1.tutor =res.detalleApoderado[1].tutor;
 
           this.api.obtenerApoderado(this.apoderado0.id).subscribe(res=>{
-            this.datosApoderado0 = res;
+            this.datosApoderado0 = res.usuario;
 
           })
 
           this.api.obtenerApoderado(this.apoderado1.id).subscribe(res=>{
-            this.datosApoderado1 = res;
+            this.datosApoderado1 = res.usuario;
 
 
           })
@@ -108,12 +109,12 @@ export class PerfilPage implements OnInit {
 
               this.api.obtenerTutor(this.tutor0.id).subscribe(res=>{
 
-                this.datosTutor0 = res;
+                this.datosTutor0 = res.usuario;
               })
 
               this.api.obtenerTutor(this.tutor1.id).subscribe(res=>{
 
-                this.datosTutor1 = res;
+                this.datosTutor1 = res.usuario;
               })
             }
           })

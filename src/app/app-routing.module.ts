@@ -38,6 +38,26 @@ const routes: Routes = [
     path: 'asignacion',
     loadChildren: () => import('./paginas/asignacion/asignacion.module').then( m => m.AsignacionPageModule)
   },
+  {
+    path: 'usuario',
+    loadChildren: () => import('./paginas/usuario/usuario.module').then( m => m.UsuarioPageModule)
+  },
+  {
+    path: 'asistencia-estudiante/:Id',
+    loadChildren: () => import('./paginas/asistencia-estudiante/asistencia-estudiante.module').then( m => m.AsistenciaEstudiantePageModule)
+  },
+  {
+    path: 'notas-estudiante/:Id',
+    loadChildren: () => import('./paginas/notas-estudiante/notas-estudiante.module').then( m => m.NotasEstudiantePageModule)
+  },
+  {
+    path: 'matricula/:Id',
+    loadChildren: () => import('./paginas/matricula/matricula.module').then( m => m.MatriculaPageModule)
+  },
+  {
+    path: 'horario-estudiante/:Id',
+    loadChildren: () => import('./paginas/horario-estudiante/horario-estudiante.module').then( m => m.HorarioEstudiantePageModule)
+  },
 ];
 
 @NgModule({
